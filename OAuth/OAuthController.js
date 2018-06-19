@@ -65,7 +65,7 @@ let oAuthController = function () {
                 User: user._id
             };
             OAuthServices.createOAuthClient(oauthClient).then(() => {
-                res.status(401).send(messagesService.userCreated);
+                res.status(201).send(messagesService.userCreated);
             })
         }).catch((err) => {
             if (err === 11000)
