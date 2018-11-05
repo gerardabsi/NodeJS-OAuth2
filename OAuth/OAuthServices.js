@@ -7,6 +7,9 @@ let OAuthServices = () => {
 
     let createUser = (data) => {
         return new blueBirdPromise((resolve, reject) => {
+            if (!data) {
+                reject(new Error('Invalid Parameters'));
+            }
             let user = new User(data);
             user.save((err) => {
                 if (err) {
@@ -37,6 +40,9 @@ let OAuthServices = () => {
 
     let getClient = (user) => {
         return new blueBirdPromise((resolve, reject) => {
+            if (!user) {
+                reject(new Error('Invalid Parameters'));
+            }
             OAuthClient.findOne({User: user}, (err, client) => {
                 if (err)
                     reject(err);
@@ -48,25 +54,32 @@ let OAuthServices = () => {
 
     let getUser = (username, password) => {
         return new blueBirdPromise((resolve, reject) => {
-            User.findOne({username: username, password: password}, function (err, user) {
-                if (err)
-                    reject(err);
+            if (!username || !password) {
+                reject(new Error('Invalid Parameters'));
+            }
+            User.findOne({username: username, password: password}, (err, user) => {
+                if (err) {
+                    reject(new Error(err));
+                }
                 else if (user) {
                     resolve(user);
                 } else {
-                    reject(401);
+                    reject(new Error('401'));
                 }
-            });
+            })
         });
     };
 
     let deleteUserTokens = (user) => {
         return new blueBirdPromise((resolve, reject) => {
-            OAuthRefreshToken.remove({User: user}, function (err) {
+            if (!user) {
+                reject(new Error('Invalid Parameters'));
+            }
+            OAuthRefreshToken.remove({User: user}, (err) => {
                 if (err)
                     reject(err);
                 else {
-                    OAuthAccessToken.remove({User: user}, function (err) {
+                    OAuthAccessToken.remove({User: user}, (err) => {
                         if (err)
                             reject(err);
                         else
