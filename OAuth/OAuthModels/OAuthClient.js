@@ -1,7 +1,7 @@
-let mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-let OAuthClientSchema = new Schema({
+const OAuthClientSchema = new Schema({
     name: String,
     client_id: String,
     client_secret: String,

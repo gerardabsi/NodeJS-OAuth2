@@ -1,4 +1,4 @@
-let _ = require('lodash'),
+const _ = require('lodash'),
     mongodb = require('./OAuthModels'),
     User = mongodb.User,
     OAuthClient = mongodb.OAuthClient,

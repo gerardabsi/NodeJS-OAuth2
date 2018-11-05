@@ -1,7 +1,7 @@
-let mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-let RefreshTokenSchema = new Schema({
+const RefreshTokenSchema = new Schema({
     refresh_token: String,
     expires: Date,
     scope: String,

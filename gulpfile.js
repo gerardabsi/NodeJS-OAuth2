@@ -1,4 +1,4 @@
-let gulp = require('gulp'),
+const gulp = require('gulp'),
     nodemon = require('gulp-nodemon');
 
 gulp.task('start', () => {
@@ -9,7 +9,7 @@ gulp.task('start', () => {
             port: 1111
         },
         ignore: ['./node_modules/**']
-    }).on('restart', function () {
+    }).on('restart', () => {
         console.log('Server Restarted');
     });
 });

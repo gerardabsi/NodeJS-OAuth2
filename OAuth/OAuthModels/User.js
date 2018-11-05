@@ -1,7 +1,7 @@
-let mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-let userModel = new Schema({
+const userModel = new Schema({
     username: {
         type: String,
         unique: true

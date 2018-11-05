@@ -1,6 +1,6 @@
-let config = require('../../config');
-let mongoose = require('mongoose');
-mongoose.connect(config.mongodb.database, function (err) {
+const config = require('../../config');
+const mongoose = require('mongoose');
+mongoose.connect(config.mongodb.database, (err) => {
     if (err) return console.log(err);
     console.log('Mongoose Connected');
 });

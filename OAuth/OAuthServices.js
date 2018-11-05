@@ -1,11 +1,11 @@
-let OAuthServices = () => {
-    let blueBirdPromise = require('bluebird'),
+const OAuthServices = () => {
+    const blueBirdPromise = require('bluebird'),
         User = require('./OAuthModels/User'),
         OAuthClient = require('./OAuthModels/OAuthClient'),
         OAuthAccessToken = require('./OAuthModels/OAuthAccessToken'),
         OAuthRefreshToken = require('./OAuthModels/OAuthRefreshToken');
 
-    let createUser = (data) => {
+    const createUser = (data) => {
         return new blueBirdPromise((resolve, reject) => {
             let user = new User(data);
             user.save((err) => {
@@ -22,7 +22,7 @@ let OAuthServices = () => {
         });
     };
 
-    let createOAuthClient = (data) => {
+    const createOAuthClient = (data) => {
         return new blueBirdPromise((resolve, reject) => {
             let oauthClient = new OAuthClient(data);
             oauthClient.save((err) => {
@@ -35,7 +35,7 @@ let OAuthServices = () => {
         });
     };
 
-    let getClient = (user) => {
+    const getClient = (user) => {
         return new blueBirdPromise((resolve, reject) => {
             OAuthClient.findOne({User: user}, (err, client) => {
                 if (err)
@@ -46,9 +46,9 @@ let OAuthServices = () => {
         });
     };
 
-    let getUser = (username, password) => {
+    const getUser = (username, password) => {
         return new blueBirdPromise((resolve, reject) => {
-            User.findOne({username: username, password: password}, function (err, user) {
+            User.findOne({username: username, password: password}, (err, user) => {
                 if (err)
                     reject(err);
                 else if (user) {
@@ -60,13 +60,13 @@ let OAuthServices = () => {
         });
     };
 
-    let deleteUserTokens = (user) => {
+    const deleteUserTokens = (user) => {
         return new blueBirdPromise((resolve, reject) => {
-            OAuthRefreshToken.remove({User: user}, function (err) {
+            OAuthRefreshToken.remove({User: user}, (err) => {
                 if (err)
                     reject(err);
                 else {
-                    OAuthAccessToken.remove({User: user}, function (err) {
+                    OAuthAccessToken.remove({User: user}, (err) => {
                         if (err)
                             reject(err);
                         else

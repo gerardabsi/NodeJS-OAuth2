@@ -1,21 +1,21 @@
-let oAuthController = function () {
-    let oauthServer = require('oauth2-server'),
+const oAuthController = () => {
+    const oauthServer = require('oauth2-server'),
         messagesService = require('../Services/messagesService'),
         Request = oauthServer.Request,
         Response = oauthServer.Response,
         randomString = require('randomstring'),
         OAuthServices = require('./OAuthServices')();
 
-    let oauth = require('./OAuthInit');
+    const oauth = require('./OAuthInit');
 
-    let tokenProvider = (req, res) => {
+    const tokenProvider = (req, res) => {
         if (req.body.grant_type === 'refresh_token') {
-            let request = new Request(req);
-            let response = new Response(res);
+            const request = new Request(req);
+            const response = new Response(res);
 
             oauth.token(request, response)
                 .then((token) => {
-                    let auth = {
+                    const auth = {
                         token_type: 'Bearer',
                         access_token: token.accessToken,
                         expires_in: Math.abs(parseInt(((token.accessTokenExpiresAt - new Date()) / 1000).toFixed(0))),
@@ -42,8 +42,7 @@ let oAuthController = function () {
                             let auth = createTokenResponse(user, token, basicAuthBase64);
                             res.send(auth);
                         })
-                        .catch((err) => {
-                            console.log(err);
+                        .catch(() => {
                             res.status(401).json(messagesService.unAuthorized);
                         })
                 });
@@ -57,9 +56,9 @@ let oAuthController = function () {
         }
     };
 
-    let addUser = (req, res) => {
+    const addUser = (req, res) => {
         OAuthServices.createUser(req.body).then((user) => {
-            let oauthClient = {
+            const oauthClient = {
                 client_id: user.username,
                 client_secret: randomString.generate(10),
                 User: user._id
@@ -75,7 +74,7 @@ let oAuthController = function () {
         });
     };
 
-    let logoutUser = (req, res) => {
+    const logoutUser = (req, res) => {
         OAuthServices.deleteUserTokens(req.user._id).then(() => {
             res.status(200).send();
         }).catch(() => {

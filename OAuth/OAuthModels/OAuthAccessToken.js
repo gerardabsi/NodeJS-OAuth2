@@ -1,7 +1,7 @@
-let mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-let OAuthAccessTokenSchema = new Schema({
+const OAuthAccessTokenSchema = new Schema({
     access_token: String,
     expires: Date,
     scope: String,

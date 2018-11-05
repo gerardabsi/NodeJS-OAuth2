@@ -1,5 +1,5 @@
-let userRouter = function () {
-    let express = require('express'),
+const userRouter = () => {
+    const express = require('express'),
         userRouter = express.Router(),
         oAuthProvider = require('../../OAuth/OAuthController')(),
         authenticate = require('../../OAuth/authenticate');
@@ -14,7 +14,7 @@ let userRouter = function () {
     userRouter.use('/authenticatedCall', authenticate());
     userRouter.route('/authenticatedCall')
         .get((req, res) => {
-            res.send({message: 'You Are Authenticated Authenticated'})
+            res.send({message: 'You Are Authenticated'})
         });
 
     userRouter.use('/logout', authenticate());

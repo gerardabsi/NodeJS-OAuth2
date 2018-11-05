@@ -1,5 +1,5 @@
-let oauthServer = require('oauth2-server');
-let OAuthInit = new oauthServer({
+const oauthServer = require('oauth2-server');
+const OAuthInit = new oauthServer({
     model: require('./OAuthCore.js'),
     accessTokenLifetime: 60 * 60 * 6,
     refreshTokenLifetime: 60 * 60 * 7,
